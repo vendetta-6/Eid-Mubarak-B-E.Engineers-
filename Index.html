@@ -3,26 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eid Mubarak!</title>
+    <title>Engineer Math Game</title>
     <style>
-        body {
-            text-align: center;
-            background-color: #f4e4ba;
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            color: #008000;
-            font-size: 3em;
-            margin-top: 50px;
-        }
-        p {
-            font-size: 1.5em;
-            color: #444;
-        }
+        body { text-align: center; font-family: Arial, sans-serif; }
+        input, button { padding: 10px; margin: 10px; font-size: 18px; }
     </style>
 </head>
 <body>
-    <h1>🌙 Eid Mubarak! 🎉</h1>
-    <p>Wishing all my fellow engineers a happy and blessed Eid!</p>
+    <h1>Welcome, Engineer!</h1>
+    <input type="text" id="username" placeholder="Enter your name">
+    <button onclick="startGame()">Start</button>
+    
+    <div id="game" style="display: none;">
+        <p id="math-question"></p>
+        <input type="number" id="answer" placeholder="Your answer">
+        <button onclick="checkAnswer()">Submit</button>
+        <p id="feedback"></p>
+    </div>
+
+    <script>
+        let correctAnswer = 0;
+
+        function startGame() {
+            let name = document.getElementById("username").value;
+            if (name === "") {
+                alert("Please enter your name.");
+                return;
+            }
+            document.querySelector("h1").innerText = `Hello, Engineer ${name}!`;
+            document.getElementById("game").style.display = "block";
+            generateQuestion();
+        }
+
+        function generateQuestion() {
+            let num1 = Math.floor(Math.random() * 10) + 1;
+            let num2 = Math.floor(Math.random() * 10) + 1;
+            correctAnswer = num1 + num2;
+            document.getElementById("math-question").innerText = `Solve: ${num1} + ${num2} = ?`;
+        }
+
+        function checkAnswer() {
+            let userAnswer = document.getElementById("answer").value;
+            let feedback = document.getElementById("feedback");
+            if (parseInt(userAnswer) === correctAnswer) {
+                feedback.innerText = "✅ Correct!";
+            } else {
+                feedback.innerText = "❌ Try again!";
+            }
+            generateQuestion();
+        }
+    </script>
 </body>
 </html>
